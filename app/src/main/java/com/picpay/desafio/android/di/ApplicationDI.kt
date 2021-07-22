@@ -1,19 +1,18 @@
 package com.picpay.desafio.android.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.picpay.desafio.android.data.remote.PicPayService
-import com.picpay.desafio.android.data.remote.ServiceFactory
+import com.picpay.desafio.android.data.PicPayRepository
+import com.picpay.desafio.android.data.PicPayRepositoryImpl
+import com.picpay.desafio.android.data.remote.*
+import com.picpay.desafio.android.domain.GetUsersUseCase
+import com.picpay.desafio.android.ui.UserListViewModel
+import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object ApplicationDI {
     val module = module {
-        factory<Gson> {
-            GsonBuilder().create()
-        }
-
         factory {
-            ServiceFactory(get())
+            ServiceFactory()
         }
 
         factory<PicPayService> {
@@ -21,5 +20,23 @@ object ApplicationDI {
                 .getRetrofit()
                 .create(PicPayService::class.java)
         }
+
+        factory {
+            RequestWrapper()
+        }
+
+        factory<PicPayRemoteDataSource> {
+            PicPayRemoteDataSourceImpl(get(), get())
+        }
+
+        factory<PicPayRepository> {
+            PicPayRepositoryImpl(get())
+        }
+
+        factory {
+            GetUsersUseCase(get())
+        }
+
+        viewModel { UserListViewModel(androidApplication(), get()) }
     }
 }
