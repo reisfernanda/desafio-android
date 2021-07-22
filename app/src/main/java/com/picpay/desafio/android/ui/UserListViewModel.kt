@@ -1,11 +1,11 @@
 package com.picpay.desafio.android.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.picpay.desafio.android.commons.Status
 import com.picpay.desafio.android.domain.GetUsersUseCase
 import com.picpay.desafio.android.domain.User
 
@@ -17,20 +17,27 @@ class UserListViewModel(
     private val _users by lazy { MutableLiveData<List<User>>() }
     val users: LiveData<List<User>> = _users
 
+    private val _status by lazy { MutableLiveData<Status>() }
+    val status: LiveData<Status> = _status
+
     init {
         getUsers()
     }
 
-    fun getUsers() {
+    private fun getUsers() {
         getUsersUseCase(
             scope = viewModelScope,
-            onSuccess = { list ->
-                Log.d("UserListViewModel", list.toString())
-                _users.postValue(list)
-            }, onError = { throwable ->
-                Log.d("UserListViewModel", throwable.message!!)
+            onSuccess = { users ->
+                if (users.isEmpty()) {
+                    _status.postValue(Status.EMPTY)
+                } else {
+                    _status.postValue(Status.SUCCESS)
+                }
+                _users.postValue(users)
+            }, onError = {
+                _status.postValue(Status.FAILURE)
             }, onLoading = {
-                Log.d("UserListViewModel", "loading")
+                _status.postValue(Status.LOADING)
             }
         )
     }

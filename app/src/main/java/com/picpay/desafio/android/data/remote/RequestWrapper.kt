@@ -6,8 +6,8 @@ import retrofit2.HttpException
 class RequestWrapper {
     suspend fun <D> wrapper(call: suspend () -> D): Either<Throwable, D> {
         return try {
-            val dataFromRemote = call()
-            Either.Success(dataFromRemote)
+            val data = call()
+            Either.Success(data)
         } catch (httpException: HttpException) {
             return Either.Failure(httpException)
         } catch (e: Exception) {

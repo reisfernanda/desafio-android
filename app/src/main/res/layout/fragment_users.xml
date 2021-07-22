@@ -15,6 +15,15 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/errorMessage"
+            style="@style/ScreenTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:text="@string/error"
+            android:gravity="center"/>
+
+        <TextView
             android:id="@+id/title"
             style="@style/ScreenTitleTextView"
             android:layout_width="wrap_content"
