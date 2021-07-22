@@ -14,6 +14,8 @@ app/app.iml
 .idea/
 .idea/.name
 .idea/modules.xml
+.idea/gradle.xml
+.idea/misc.xml
 
 # files for the dex VM
 *.dex
