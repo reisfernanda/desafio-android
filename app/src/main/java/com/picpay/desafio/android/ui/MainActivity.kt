@@ -13,21 +13,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var adapter: UserListAdapter
-    private val viewModel: UserListViewModel by viewModel()
 
     override fun onResume() {
         super.onResume()
 
-        viewModel.getUsers()
-
-        recyclerView = findViewById(R.id.recyclerView)
-        progressBar = findViewById(R.id.user_list_progress_bar)
-
-        adapter = UserListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        progressBar.visibility = View.VISIBLE
+//        recyclerView = findViewById(R.id.recyclerView)
+//        progressBar = findViewById(R.id.user_list_progress_bar)
+//
+//        adapter = UserListAdapter()
+//        recyclerView.adapter = adapter
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//
+//        progressBar.visibility = View.VISIBLE
 //        service.getUsers()
 //            .enqueue(object : Callback<List<User>> {
 //                override fun onFailure(call: Call<List<User>>, t: Throwable) {

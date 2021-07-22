@@ -17,11 +17,16 @@ class UserListViewModel(
     private val _users by lazy { MutableLiveData<List<User>>() }
     val users: LiveData<List<User>> = _users
 
+    init {
+        getUsers()
+    }
+
     fun getUsers() {
         getUsersUseCase(
             scope = viewModelScope,
             onSuccess = { list ->
                 Log.d("UserListViewModel", list.toString())
+                _users.postValue(list)
             }, onError = { throwable ->
                 Log.d("UserListViewModel", throwable.message!!)
             }, onLoading = {
