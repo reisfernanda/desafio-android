@@ -7,24 +7,29 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class UseCase<T> {
-    abstract suspend fun run(): Flow<Either<Throwable, T>>
+abstract class UseCase<out T> {
+    abstract suspend fun run(): Either<Throwable, Flow<T>>
     operator fun invoke(
         scope: CoroutineScope,
         onError: ((Throwable) -> Unit) = {},
         onSuccess: (T) -> Unit = {},
         onLoading: ((Boolean) -> Unit) = {}
     ) {
+
         scope.launch(Dispatchers.IO) {
             try {
                 onLoading(true)
-                run().collect {
+                run().run {
+                    val either = this
                     withContext(Dispatchers.Main) {
                         onLoading(false)
-                        it.either(
-                            onSuccess = { onSuccess(it) },
-                            onFailure = { onError(it) }
-                        )
+                        if (either is Either.Success) {
+                            either.success.collect {
+                                onSuccess(it)
+                            }
+                        } else if (either is Either.Failure) {
+                            onError(either.failure)
+                        }
                     }
                 }
             } catch (e: Exception) {

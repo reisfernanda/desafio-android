@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class PicPayRepositoryImpl(
     private val remoteDataSource: PicPayRemoteDataSource
 ): PicPayRepository {
-    override suspend fun getUsers(): Flow<Either<Throwable, List<User>>> {
+    override suspend fun getUsers(): Either<Throwable, Flow<List<User>>> {
         return remoteDataSource.getUsers()
     }
 }

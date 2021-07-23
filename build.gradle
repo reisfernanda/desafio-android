@@ -27,6 +27,8 @@ buildscript {
         core_ktx_test_version = "1.4.0"
 
         navigation_version = "2.3.5"
+
+        room_version = "2.3.0"
     }
 
     repositories {

@@ -37,7 +37,7 @@ class UserListViewModel(
             }, onError = {
                 _status.postValue(Status.FAILURE)
             }, onLoading = {
-                _status.postValue(Status.LOADING)
+                if (it) _status.postValue(Status.LOADING)
             }
         )
     }

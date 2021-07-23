@@ -9,7 +9,7 @@ class PicPayRemoteDataSourceImpl(
     private val service: PicPayService,
     private val requestWrapper: RequestWrapper
     ) : PicPayRemoteDataSource {
-    override suspend fun getUsers(): Flow<Either<Throwable, List<User>>> {
-        return flow { emit(requestWrapper.wrapper {  service.getUsers() }) }
+    override suspend fun getUsers(): Either<Throwable, Flow<List<User>>> {
+        return requestWrapper.wrapper { flow { emit( service.getUsers()) } }
     }
 }
