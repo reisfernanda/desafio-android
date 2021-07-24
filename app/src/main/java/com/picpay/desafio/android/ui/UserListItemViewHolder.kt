@@ -16,7 +16,9 @@ class UserListItemViewHolder(
         itemView.name.text = user.name
         itemView.username.text = user.username
 
-        if (user.img != null) {
+        if (user.img.isNullOrEmpty()) {
+            itemView.picture.setImageResource(R.drawable.ic_round_account_circle)
+        } else {
             itemView.progressBar.visibility = View.VISIBLE
             Picasso.get()
                 .load(user.img)
@@ -30,8 +32,6 @@ class UserListItemViewHolder(
                         itemView.progressBar.visibility = View.GONE
                     }
                 })
-        } else {
-            itemView.picture.setImageResource(R.drawable.ic_round_account_circle)
         }
     }
 }

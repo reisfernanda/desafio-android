@@ -41,7 +41,7 @@ class UserFragment: Fragment() {
 
     private fun setupSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getUsers()
+            viewModel.getUsers(forceUpdate = true)
         }
     }
 

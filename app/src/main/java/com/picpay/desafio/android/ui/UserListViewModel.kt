@@ -25,10 +25,11 @@ class UserListViewModel(
         getUsers()
     }
 
-    fun getUsers() {
+    fun getUsers(forceUpdate: Boolean = false) {
         Log.d("UserListViewModel", "getUsers")
         getUsersUseCase(
             scope = viewModelScope,
+            params = forceUpdate,
             onSuccess = { users ->
                 if (users.isEmpty()) {
                     _status.postValue(Status.EMPTY)

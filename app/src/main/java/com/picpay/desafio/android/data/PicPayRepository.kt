@@ -5,5 +5,5 @@ import com.picpay.desafio.android.domain.User
 import kotlinx.coroutines.flow.Flow
 
 interface PicPayRepository {
-    suspend fun getUsers(): Either<Throwable, Flow<List<User>>>
+    suspend fun getUsers(forceUpdate: Boolean): Either<Throwable, Flow<List<User>>>
 }

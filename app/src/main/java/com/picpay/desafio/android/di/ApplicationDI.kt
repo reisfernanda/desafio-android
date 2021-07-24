@@ -36,19 +36,19 @@ object ApplicationDI {
         }
 
         factory {
-            RequestWrapper()
+            Wrapper()
         }
 
         factory<PicPayRemoteDataSource> {
-            PicPayRemoteDataSourceImpl(get(), get())
+            PicPayRemoteDataSourceImpl(get())
         }
 
         factory<PicPayLocalDataSource> {
-            PicPayLocalDataSourceImpl(get(), get())
+            PicPayLocalDataSourceImpl(get())
         }
 
         factory<PicPayRepository> {
-            PicPayRepositoryImpl(get())
+            PicPayRepositoryImpl(get(), get(), get())
         }
 
         factory {
