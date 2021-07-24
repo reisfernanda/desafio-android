@@ -7,7 +7,7 @@ import com.picpay.desafio.android.data.local.AppDatabase
 @Entity(tableName = AppDatabase.userTable)
 data class User(
     @PrimaryKey val id: Int,
-    val img: String,
-    val name: String,
-    val username: String
+    val img: String?,
+    val name: String?,
+    val username: String?
 )
