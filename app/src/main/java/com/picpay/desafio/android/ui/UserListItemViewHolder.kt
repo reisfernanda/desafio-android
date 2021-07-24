@@ -16,12 +16,11 @@ class UserListItemViewHolder(
         itemView.name.text = user.name
         itemView.username.text = user.username
 
-        user.img?.let {
+        if (user.img != null) {
             itemView.progressBar.visibility = View.VISIBLE
             Picasso.get()
-                .load(it)
+                .load(user.img)
                 .error(R.drawable.ic_round_account_circle)
-                .placeholder(R.drawable.ic_round_account_circle)
                 .into(itemView.picture, object : Callback {
                     override fun onSuccess() {
                         itemView.progressBar.visibility = View.GONE
@@ -31,6 +30,8 @@ class UserListItemViewHolder(
                         itemView.progressBar.visibility = View.GONE
                     }
                 })
+        } else {
+            itemView.picture.setImageResource(R.drawable.ic_round_account_circle)
         }
     }
 }
