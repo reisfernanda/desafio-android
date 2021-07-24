@@ -55,21 +55,18 @@ class UserFragment: Fragment() {
 
     private fun showUsersList() {
         recyclerView.setVisible(true)
-        title.setVisible(true)
         user_list_progress_bar.setVisible(false)
         errorMessage.setVisible(false)
     }
 
     private fun showLoading() {
         recyclerView.setVisible(false)
-        title.setVisible(false)
         user_list_progress_bar.setVisible(true)
         errorMessage.setVisible(false)
     }
 
     private fun showError(message: String) {
         recyclerView.setVisible(false)
-        title.setVisible(false)
         user_list_progress_bar.setVisible(false)
         errorMessage.setVisible(true)
         errorMessage.text = message

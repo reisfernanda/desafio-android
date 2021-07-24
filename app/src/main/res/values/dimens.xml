@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginSmall">8dp</dimen>
+    <dimen name="marginMedium1">16dp</dimen>
+    <dimen name="marginMedium2">24dp</dimen>
+    <dimen name="marginBig">48dp</dimen>
+    <dimen name="pictureSize">52dp</dimen>
+</resources>
