@@ -28,6 +28,7 @@ class UserFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupSwipeRefreshLayout()
         setupRecyclerView()
         setupObservers()
     }
@@ -36,6 +37,12 @@ class UserFragment: Fragment() {
         adapter = UserListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getUsers()
+        }
     }
 
     private fun setupObservers() {
@@ -54,18 +61,21 @@ class UserFragment: Fragment() {
     }
 
     private fun showUsersList() {
+        swipeRefreshLayout.isRefreshing = false
         recyclerView.setVisible(true)
         user_list_progress_bar.setVisible(false)
         errorMessage.setVisible(false)
     }
 
     private fun showLoading() {
+        if (swipeRefreshLayout.isRefreshing) return
         recyclerView.setVisible(false)
         user_list_progress_bar.setVisible(true)
         errorMessage.setVisible(false)
     }
 
     private fun showError(message: String) {
+        swipeRefreshLayout.isRefreshing = false
         recyclerView.setVisible(false)
         user_list_progress_bar.setVisible(false)
         errorMessage.setVisible(true)

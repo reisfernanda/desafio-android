@@ -25,7 +25,7 @@ class UserListViewModel(
         getUsers()
     }
 
-    private fun getUsers() {
+    fun getUsers() {
         Log.d("UserListViewModel", "getUsers")
         getUsersUseCase(
             scope = viewModelScope,

@@ -21,6 +21,6 @@ class UserListDiffCallback(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return true
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 }
