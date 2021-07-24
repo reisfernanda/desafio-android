@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.di
+package com.picpay.desafio.android.data.di
 
 import androidx.room.Room
 import com.picpay.desafio.android.data.PicPayRepository
@@ -7,14 +7,10 @@ import com.picpay.desafio.android.data.local.AppDatabase
 import com.picpay.desafio.android.data.local.PicPayLocalDataSource
 import com.picpay.desafio.android.data.local.PicPayLocalDataSourceImpl
 import com.picpay.desafio.android.data.remote.*
-import com.picpay.desafio.android.domain.GetUsersUseCase
-import com.picpay.desafio.android.ui.UserListViewModel
-import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-object ApplicationDI {
+object DataDI {
     val module = module {
         single {
             Room.databaseBuilder(
@@ -50,11 +46,5 @@ object ApplicationDI {
         factory<PicPayRepository> {
             PicPayRepositoryImpl(get(), get(), get())
         }
-
-        factory {
-            GetUsersUseCase(get())
-        }
-
-        viewModel { UserListViewModel(androidApplication(), get()) }
     }
 }

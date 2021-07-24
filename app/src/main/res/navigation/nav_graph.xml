@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.picpay.desafio.android.ui.UserFragment"
+        android:name="com.picpay.desafio.android.presentation.UserFragment"
         android:label="UserFragment" />
 </navigation>
