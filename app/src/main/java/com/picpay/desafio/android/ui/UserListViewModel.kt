@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,7 @@ class UserListViewModel(
     }
 
     private fun getUsers() {
+        Log.d("UserListViewModel", "getUsers")
         getUsersUseCase(
             scope = viewModelScope,
             onSuccess = { users ->
