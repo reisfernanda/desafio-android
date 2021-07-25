@@ -27,7 +27,7 @@ class UserListViewModel(
 
     fun getUsers(forceUpdate: Boolean = false) {
         Log.d("UserListViewModel", "getUsers")
-        getUsersUseCase(
+        getUsersUseCase.run(
             scope = viewModelScope,
             params = forceUpdate,
             onSuccess = { users ->

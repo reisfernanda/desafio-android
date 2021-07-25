@@ -29,7 +29,8 @@ class PicPayRepositoryImpl(
 
         if (forceUpdate || shouldCallRemote()) {
             usersFromRemote = wrapper.wrap {
-                flow { emit (remoteDataSource.getUsers())}
+                val users = remoteDataSource.getUsers()
+                flow { emit (users)}
 
                 // For testing purpose
 //                flow { emit(listOf(UserResponse(11, "", "José", "jose"),
@@ -45,10 +46,10 @@ class PicPayRepositoryImpl(
                     localDataSource.updateUsers(it.toEntityList())
 
                     setLastUpdate()
-                    Log.d(TAG, "Users updated on database: $it")
+//                    Log.d(TAG, "Users updated on database: $it")
                 }
             } else {
-                Log.d(TAG, "Failed to get users from remote.")
+//                Log.d(TAG, "Failed to get users from remote.")
             }
             localDataSource.getUsers().toDomainList()
         }
