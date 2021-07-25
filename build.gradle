@@ -29,6 +29,9 @@ buildscript {
         navigation_version = "2.3.5"
 
         room_version = "2.3.0"
+
+        mockk_version = "1.11.0"
+        kotlin_test_version = "3.4.2"
     }
 
     repositories {
