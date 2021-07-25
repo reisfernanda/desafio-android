@@ -1,7 +1,6 @@
 package com.picpay.desafio.android.presentation
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,7 +25,7 @@ class UserListViewModel(
     }
 
     fun getUsers(forceUpdate: Boolean = false) {
-        Log.d("UserListViewModel", "getUsers")
+        UserFragment.countingIdlingResource?.increment()
         getUsersUseCase.run(
             scope = viewModelScope,
             params = forceUpdate,
@@ -37,8 +36,10 @@ class UserListViewModel(
                     _status.postValue(Status.SUCCESS)
                 }
                 _users.postValue(users)
+                UserFragment.countingIdlingResource?.decrement()
             }, onError = {
                 _status.postValue(Status.FAILURE)
+                UserFragment.countingIdlingResource?.decrement()
             }, onLoading = {
                 if (it) _status.postValue(Status.LOADING)
             }

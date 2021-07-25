@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.domain
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.picpay.desafio.android.commons.Either
 import com.picpay.desafio.android.commons.TestCoroutineContextProvider
 import com.picpay.desafio.android.data.PicPayRepository
@@ -15,7 +14,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
@@ -24,8 +22,6 @@ class GetUsersUseCaseTest {
     private val useCase = GetUsersUseCase(repository, TestCoroutineContextProvider())
     private val testDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testDispatcher)
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val users = listOf(
         User("", "José", "jose"),

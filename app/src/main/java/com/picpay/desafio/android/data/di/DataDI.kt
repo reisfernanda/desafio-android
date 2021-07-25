@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.data.di
 
 import androidx.room.Room
+import com.picpay.desafio.android.BuildConfig
 import com.picpay.desafio.android.data.PicPayRepository
 import com.picpay.desafio.android.data.PicPayRepositoryImpl
 import com.picpay.desafio.android.data.utils.Wrapper
@@ -23,16 +24,6 @@ object DataDI {
         }
 
         factory {
-            ServiceFactory()
-        }
-
-        factory<PicPayService> {
-            get<ServiceFactory>()
-                .getRetrofit()
-                .create(PicPayService::class.java)
-        }
-
-        factory {
             Wrapper()
         }
 
@@ -46,6 +37,18 @@ object DataDI {
 
         factory<PicPayRepository> {
             PicPayRepositoryImpl(get(), get(), get())
+        }
+    }
+
+    val serviceModule = module {
+        factory {
+            ServiceFactory(BuildConfig.BASE_URL)
+        }
+
+        factory<PicPayService> {
+            get<ServiceFactory>()
+                .getRetrofit()
+                .create(PicPayService::class.java)
         }
     }
 }

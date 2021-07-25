@@ -3,16 +3,23 @@ package com.picpay.desafio.android
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
+import com.picpay.desafio.android.data.di.DataDI
+import com.picpay.desafio.android.data.utils.CacheStrategy
 import com.picpay.desafio.android.presentation.MainActivity
-import okhttp3.mockwebserver.Dispatcher
-import okhttp3.mockwebserver.MockResponse
+import com.picpay.desafio.android.presentation.UserFragment
+import io.mockk.every
+import io.mockk.mockkObject
 import okhttp3.mockwebserver.MockWebServer
-import okhttp3.mockwebserver.RecordedRequest
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 
 
 class MainActivityTest {
@@ -20,6 +27,22 @@ class MainActivityTest {
     private val server = MockWebServer()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    private val idlingResource = UserFragment.getIdlingResource()
+
+    @Before
+    fun setup() {
+        IdlingRegistry.getInstance().register(idlingResource)
+
+        unloadKoinModules(DataDI.serviceModule)
+        loadKoinModules(TestDI.mockServiceModule)
+
+        mockkObject(CacheStrategy)
+        every { CacheStrategy.isCacheExpired(any()) } returns true
+
+        server.dispatcher = MockWebServerDispatcher()
+        server.start(MockWebServerDispatcher.serverPort)
+    }
 
     @Test
     fun shouldDisplayTitle() {
@@ -33,37 +56,21 @@ class MainActivityTest {
     }
 
     @Test
-    fun shouldDisplayListItem() {
-        server.dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                return when (request.path) {
-                    "/users" -> successResponse
-                    else -> errorResponse
-                }
-            }
-        }
-
-        server.start(serverPort)
-
+    fun shouldDisplayListItems() {
         launchActivity<MainActivity>().apply {
-            // TODO("validate if list displays items returned by server")
+            RecyclerViewMatchers.checkRecyclerViewItem(R.id.recyclerView, 0, withText("@eduardo.santos"))
+            RecyclerViewMatchers.checkRecyclerViewItem(R.id.recyclerView, 0, withText("Eduardo Santos"))
+            RecyclerViewMatchers.checkRecyclerViewItem(R.id.recyclerView, 1, withText("@joao.silva"))
+            RecyclerViewMatchers.checkRecyclerViewItem(R.id.recyclerView, 1, withText("João Silva"))
+            RecyclerViewMatchers.checkRecyclerViewItem(R.id.recyclerView, 2, withText("@mario"))
+            RecyclerViewMatchers.checkRecyclerViewItem(R.id.recyclerView, 2, withText("Mário"))
         }
-
-        server.close()
     }
 
-    companion object {
-        private const val serverPort = 8080
-
-        private val successResponse by lazy {
-            val body =
-                "[{\"id\":1001,\"name\":\"Eduardo Santos\",\"img\":\"https://randomuser.me/api/portraits/men/9.jpg\",\"username\":\"@eduardo.santos\"}]"
-
-            MockResponse()
-                .setResponseCode(200)
-                .setBody(body)
-        }
-
-        private val errorResponse by lazy { MockResponse().setResponseCode(404) }
+    @After
+    fun finish() {
+        server.close()
+        IdlingRegistry.getInstance().unregister(idlingResource)
+        unloadKoinModules(TestDI.mockServiceModule)
     }
 }

@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.commons.Status
 import com.picpay.desafio.android.extensions.setVisible
 import kotlinx.android.synthetic.main.fragment_users.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+private const val TAG = "UserFragment"
 
 class UserFragment: Fragment() {
 
@@ -80,5 +84,17 @@ class UserFragment: Fragment() {
         user_list_progress_bar.setVisible(false)
         errorMessage.setVisible(true)
         errorMessage.text = message
+    }
+
+    companion object {
+        var countingIdlingResource: CountingIdlingResource? = null
+
+        @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+        fun getIdlingResource(): CountingIdlingResource? {
+            if (countingIdlingResource == null) {
+                countingIdlingResource = CountingIdlingResource(TAG)
+            }
+            return countingIdlingResource
+        }
     }
 }

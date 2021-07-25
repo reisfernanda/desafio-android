@@ -14,6 +14,7 @@ class PicPayApplication: Application() {
         startKoin {
             modules(
                 DataDI.module +
+                        DataDI.serviceModule +
                         DomainDI.module +
                         PresentationDI.module
             ).androidContext(applicationContext)
