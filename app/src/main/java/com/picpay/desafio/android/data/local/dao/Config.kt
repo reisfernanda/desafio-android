@@ -2,7 +2,7 @@ package com.picpay.desafio.android.data.local.dao
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.picpay.desafio.android.data.local.AppDatabase
+import com.picpay.desafio.android.data.local.database.AppDatabase
 
 @Entity(tableName = AppDatabase.configTable)
 data class Config(

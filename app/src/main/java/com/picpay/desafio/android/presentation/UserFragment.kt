@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.commons.Status
-import com.picpay.desafio.android.setVisible
+import com.picpay.desafio.android.extensions.setVisible
 import kotlinx.android.synthetic.main.fragment_users.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

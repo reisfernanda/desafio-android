@@ -3,7 +3,8 @@ package com.picpay.desafio.android.data.di
 import androidx.room.Room
 import com.picpay.desafio.android.data.PicPayRepository
 import com.picpay.desafio.android.data.PicPayRepositoryImpl
-import com.picpay.desafio.android.data.local.AppDatabase
+import com.picpay.desafio.android.data.utils.Wrapper
+import com.picpay.desafio.android.data.local.database.AppDatabase
 import com.picpay.desafio.android.data.local.PicPayLocalDataSource
 import com.picpay.desafio.android.data.local.PicPayLocalDataSourceImpl
 import com.picpay.desafio.android.data.remote.*

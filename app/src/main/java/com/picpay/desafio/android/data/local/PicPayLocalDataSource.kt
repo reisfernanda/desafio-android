@@ -1,13 +1,12 @@
 package com.picpay.desafio.android.data.local
 
 import com.picpay.desafio.android.data.local.dao.Config
-import com.picpay.desafio.android.domain.User
 import kotlinx.coroutines.flow.Flow
 
 interface PicPayLocalDataSource {
-    suspend fun getUsers(): Flow<List<User>>
+    suspend fun getUsers(): Flow<List<UserEntity>>
 
-    suspend fun updateUsers(users: List<User>)
+    suspend fun updateUsers(users: List<UserEntity>)
 
     suspend fun getConfig(name: String): Config?
 

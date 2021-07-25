@@ -1,14 +1,14 @@
-package com.picpay.desafio.android.data.local
+package com.picpay.desafio.android.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.picpay.desafio.android.data.local.UserEntity
 import com.picpay.desafio.android.data.local.dao.Config
 import com.picpay.desafio.android.data.local.dao.ConfigDao
 import com.picpay.desafio.android.data.local.dao.UserDao
-import com.picpay.desafio.android.domain.User
 
 @Database(
-    entities = [User::class, Config::class],
+    entities = [UserEntity::class, Config::class],
     version = AppDatabase.VERSION
 )
 

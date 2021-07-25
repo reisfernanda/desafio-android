@@ -16,12 +16,12 @@ class UserListItemViewHolder(
         itemView.name.text = user.name
         itemView.username.text = user.username
 
-        if (user.img.isNullOrEmpty()) {
+        if (user.image.isEmpty()) {
             itemView.picture.setImageResource(R.drawable.ic_round_account_circle)
         } else {
             itemView.progressBar.visibility = View.VISIBLE
             Picasso.get()
-                .load(user.img)
+                .load(user.image)
                 .error(R.drawable.ic_round_account_circle)
                 .into(itemView.picture, object : Callback {
                     override fun onSuccess() {

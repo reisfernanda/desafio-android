@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.data.remote
+package com.picpay.desafio.android.data.utils
 
 import com.picpay.desafio.android.commons.Either
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.data
+package com.picpay.desafio.android.data.utils
 
 import android.util.Log
 
